@@ -158,6 +158,45 @@ Additional examples of using the Claude Desktop as an MCP client might look like
 }
 ```
 
+## MCP Filesystem Server Setup
+
+This repository contains the configuration and setup for connecting the MCP filesystem server to Claude Desktop.
+
+## Installation
+
+1. Install the MCP filesystem server globally:
+```bash
+npm install -g @modelcontextprotocol/server-filesystem
+```
+2. Configure Claude Desktop to use the filesystem server by editing `%APPDATA%/Claude/config.json`:
+```json
+{
+    "mcpServers": {
+        "filesystem": {
+            "command": "node",
+            "args": [
+                "C:\\Users\\USER\\AppData\\Roaming\\npm\\node_modules\\@modelcontextprotocol\\server-filesystem\\dist\\index.js",
+                "C:\\Users\\USER\\Desktop"
+            ],
+            "useStdio": true
+        }
+    },
+    "mcpDebugLogging": true
+}
+```
+## Key Points
+
+- The server uses stdio mode for communication with Claude Desktop
+- Absolute paths are used to avoid path resolution issues
+- The server is configured to allow access to the Desktop directory
+
+## Troubleshooting
+
+If you encounter connection issues:
+1. Make sure Claude Desktop is completely closed
+2. Check the logs in `%APPDATA%/Claude/logs/`
+3. Restart Claude Desktop to apply configuration changes
+
 ## 🛠️ Creating Your Own Server
 
 Interested in creating your own MCP server? Visit the official documentation at [modelcontextprotocol.io](https://modelcontextprotocol.io/introduction) for comprehensive guides, best practices, and technical details on implementing MCP servers.
